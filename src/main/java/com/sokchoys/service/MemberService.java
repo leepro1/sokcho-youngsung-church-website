@@ -32,4 +32,8 @@ public class MemberService {
 
         return memberFormDtoList;
     }
+
+    public void deleteById(Long id) {
+        memberRepository.deleteById(id);
+    }
 }
