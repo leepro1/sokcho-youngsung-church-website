@@ -5,9 +5,9 @@ import com.sokchoys.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/members")
@@ -26,6 +26,14 @@ public class MemberController {
     public String memberForm(MemberFormDto memberFormDto) {
         memberService.saveMember(memberFormDto);
         return "redirect:/";
+    }
+
+    @GetMapping
+    public String members(Model model) {
+        List<MemberFormDto> memberList = memberService.findAll();
+        model.addAttribute("memberList", memberList);
+
+        return "members/memberList";
     }
 
 }
