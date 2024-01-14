@@ -1,48 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>회원가입</title>
-</head>
-<body>
-<form action="/members/new" method="post" th:object="${memberFormDto}">
-    <div>
-        <label th:for="email">이메일</label>
-        <input type="text" id="email" th:field="*{email}" placeholder="이메일을 입력해주세요">
-    </div>
-    <div>
-        <label th:for="password">비밀번호</label>
-        <input type="text" id="password" th:field="*{password}" placeholder="비밀번호를 입력해주세요">
-    </div>
-    <div>
-        <label th:for="username">이름</label>
-        <input type="text" id="username" th:field="*{username}" placeholder="이메일을 입력해주세요">
-    </div>
-    <div>
-        성별
-        <label>
-            <input type="radio" th:field="*{sex}" th:value="male">
-            남자
-        </label>
-        <label>
-            <input type="radio" th:field="*{sex}" th:value="female">
-            여자
-        </label>
-    </div>
-    <div>
-        속초영성교회 등록 교인입니까?
-        <label>
-            <input type="radio" th:field="*{isChurchMember}" th:value="true">
-            예
-        </label>
-        <label>
-            <input type="radio" th:field="*{isChurchMember}" th:value="false">
-            아니오
-        </label>
-    </div>
-    <div>
-        <button type="submit">회원가입</button>
-    </div>
-</form>
-</body>
-</html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/basicLayout}">
+
+<div layout:fragment="content">
+    <form action="/members" method="post" th:object="${memberFormDto}">
+        <div>
+            <label th:for="email">이메일</label>
+            <input type="text" id="email" th:field="*{email}" placeholder="이메일을 입력해주세요">
+        </div>
+        <div>
+            <label th:for="password">비밀번호</label>
+            <input type="text" id="password" th:field="*{password}" placeholder="비밀번호를 입력해주세요">
+        </div>
+        <div>
+            <label th:for="username">이름</label>
+            <input type="text" id="username" th:field="*{username}" placeholder="이메일을 입력해주세요">
+        </div>
+        <div>
+            성별
+            <label>
+                <input type="radio" th:field="*{sex}" th:value="male">
+                남자
+            </label>
+            <label>
+                <input type="radio" th:field="*{sex}" th:value="female">
+                여자
+            </label>
+        </div>
+        <div>
+            속초영성교회 등록 교인입니까?
+            <label>
+                <input type="radio" th:field="*{isChurchMember}" th:value="true">
+                예
+            </label>
+            <label>
+                <input type="radio" th:field="*{isChurchMember}" th:value="false">
+                아니오
+            </label>
+        </div>
+        <div>
+            <button type="submit">회원가입</button>
+        </div>
+    </form>
+</div>

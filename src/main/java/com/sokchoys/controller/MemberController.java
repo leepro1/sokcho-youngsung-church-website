@@ -10,25 +10,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/members")
 @Controller
 public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/new")
+    @GetMapping("/members")
     public String memberForm(Model model) {
         model.addAttribute("memberFormDto", new MemberFormDto());
         return "members/memberForm";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/members")
     public String memberForm(MemberFormDto memberFormDto) {
         memberService.saveMember(memberFormDto);
         return "redirect:/";
     }
 
-    @GetMapping
+    @GetMapping("/admin/members")
     public String members(Model model) {
         List<MemberFormDto> memberList = memberService.findAll();
         model.addAttribute("memberList", memberList);
@@ -36,8 +35,17 @@ public class MemberController {
         return "members/memberList";
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteMember(@PathVariable Long id){
+    @GetMapping("/admin/members/{id}")
+    public String findMember(@PathVariable Long id, Model model){
+        MemberFormDto member = memberService.findOne(id);
+        model.addAttribute("member",member);
+
+        return "members/memberDetail";
+    }
+
+    @DeleteMapping("/admin/members/{id}")
+    public String deleteMember(@PathVariable Long id){
         memberService.deleteById(id);
+        return "redirect:/";
     }
 }

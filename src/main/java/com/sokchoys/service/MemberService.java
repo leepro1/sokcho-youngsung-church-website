@@ -33,6 +33,13 @@ public class MemberService {
         return memberFormDtoList;
     }
 
+    public MemberFormDto findOne(Long id){
+        Member member = memberRepository.findById(id).get();
+        MemberFormDto memberFormDto = MemberFormDto.toMemberFormDto(member);
+
+        return memberFormDto;
+    }
+
     public void deleteById(Long id) {
         memberRepository.deleteById(id);
     }
