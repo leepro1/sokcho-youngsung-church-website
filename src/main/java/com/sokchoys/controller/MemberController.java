@@ -36,15 +36,22 @@ public class MemberController {
     }
 
     @GetMapping("/admin/members/{id}")
-    public String findMember(@PathVariable Long id, Model model){
-        MemberFormDto member = memberService.findOne(id);
-        model.addAttribute("member",member);
+    public String findMember(@PathVariable Long id, Model model) {
+        MemberFormDto memberDto = memberService.findOne(id);
+        model.addAttribute("memberDto", memberDto);
 
         return "members/memberDetail";
     }
 
+    @PostMapping("/admin/members/{id}")
+    public String updateMember(@PathVariable Long id, MemberFormDto memberFormDto, Model model) {
+        MemberFormDto updatedMember = memberService.updateMember(memberFormDto);
+        model.addAttribute("memberDto", updatedMember);
+        return "members/memberDetail";
+    }
+
     @DeleteMapping("/admin/members/{id}")
-    public String deleteMember(@PathVariable Long id){
+    public String deleteMember(@PathVariable Long id) {
         memberService.deleteById(id);
         return "redirect:/";
     }

@@ -49,4 +49,12 @@ public class Member {
 
         return member;
     }
+
+    public void toUpdateMember(MemberFormDto memberFormDto){
+        this.setPassword(memberFormDto.getPassword());
+        this.setUsername(memberFormDto.getUsername());
+        this.setSex(memberFormDto.getSex());
+        this.setIsChurchMember(memberFormDto.getIsChurchMember());
+        this.setUpdatedTime(LocalDateTime.now());
+    }
 }

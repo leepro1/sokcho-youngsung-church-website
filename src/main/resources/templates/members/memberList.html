@@ -21,6 +21,7 @@
             <td th:text="${member.sex}"></td>
             <td th:text="${member.isChurchMember}"></td>
             <td th:text="${member.createdTime}"></td>
+            <td><a th:href="@{/admin/members/{id}(id=${member.id})}">수정하기</a></td>
         </tr>
     </table>
 </div>
