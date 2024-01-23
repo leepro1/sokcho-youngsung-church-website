@@ -1,16 +1,15 @@
 package com.sokchoys;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 public class HomeController {
 
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("welcomeMessage", "안녕하세요 속초영성교회입니다.");
-
-        return "index";
+    @CrossOrigin(origins = "http://localhost:8800")
+    public String index() {
+        return "Hello World";
     }
 }
