@@ -1,50 +1,17 @@
 package com.sokchoys.service;
 
 import com.sokchoys.dto.MemberFormDto;
-import com.sokchoys.entity.Member;
-import com.sokchoys.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.sokchoys.dto.MemberResultDto;
 
-import java.util.ArrayList;
-import java.util.List;
+public interface MemberService {
 
-@Service
-@Transactional
-@RequiredArgsConstructor
-public class MemberService {
+    MemberResultDto saveMember(MemberFormDto memberFormDto);
 
-    private final MemberRepository memberRepository;
+    MemberResultDto findAll();
 
-    public void saveMember(MemberFormDto memberFormDto) {
-        Member member = Member.createMember(memberFormDto);
-        Member savedMember = memberRepository.save(member);
-    }
+    MemberResultDto findOne(Long id);
 
-    public List<MemberFormDto> findAll() {
-        List<Member> memberEntityList = memberRepository.findAll();
-        List<MemberFormDto> memberFormDtoList = new ArrayList<>();
+    MemberResultDto updateMember(MemberFormDto memberFormDto);
 
-        for (Member member : memberEntityList) {
-            memberFormDtoList.add(MemberFormDto.toMemberFormDto(member));
-        }
-
-        return memberFormDtoList;
-    }
-
-    public MemberFormDto findOne(Long id) {
-        Member member = memberRepository.findById(id).get();
-        return MemberFormDto.toMemberFormDto(member);
-    }
-
-    public MemberFormDto updateMember(MemberFormDto memberFormDto) {
-        Member foundMember = memberRepository.findById(memberFormDto.getId()).get();
-        foundMember.toUpdateMember(memberFormDto);
-        return MemberFormDto.toMemberFormDto(memberRepository.save(foundMember));
-    }
-
-    public void deleteById(Long id) {
-        memberRepository.deleteById(id);
-    }
+    MemberResultDto deleteMember(Long id);
 }
