@@ -31,6 +31,7 @@
     
 <script>
 import axios from 'axios'
+import store from '@/store'
 export default {
   name: "ListView",
   data() {
@@ -46,7 +47,6 @@ export default {
       axios
         .get('http://localhost:8080/admin/members')
         .then((response) => {
-          console.log(response)
           this.memberList = response.data.result
         })
         .catch((error) => {
@@ -54,7 +54,7 @@ export default {
         })
     },
     href(member) {
-      console.log(member)
+      store.commit('setMember',member)
       this.$router.push({name: "SelectView"})
     }
   }
