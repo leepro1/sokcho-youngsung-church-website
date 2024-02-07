@@ -58,6 +58,7 @@
   </template>
   
 <script>
+import axios from 'axios'
 export default {
   name: "SelectView",
   data (){
@@ -73,9 +74,21 @@ export default {
       this.$router.push({name: "UpdateView"})
     },
     del(){
-      this.$router.push({name: "ListView"})
+      axios
+        .delete('http://localhost:8080/members/'+this.member.id)
+        .then((response) => {
+          if(response.data.state){
+            this.cancel()
+          } else{
+            alert(response.data.message)
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
     cancel(){
+      this.$store.commit('setMember',{})
       this.$router.push({name: "ListView"})
     }
   }
