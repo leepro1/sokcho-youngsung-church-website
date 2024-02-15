@@ -21,14 +21,14 @@
         성별 :
         <div class="p-2 flex-fill">
           <div class="form-check">
-            <input type="radio" class="form-check-input" id="maleRadio" name="sex" v-bind:value="male"
+            <input type="radio" class="form-check-input" id="maleRadio" name="sex" value="male"
               v-model="member.sex">남성
-            <label class="form-check-label" for="maleRadio1"></label>
+            <label class="form-check-label" for="maleRadio"></label>
           </div>
         </div>
         <div class="p-2 flex-fill">
           <div class="form-check">
-            <input type="radio" class="form-check-input" id="femaleRadio" name="sex" v-bind:value="female"
+            <input type="radio" class="form-check-input" id="femaleRadio" name="sex" value="female"
               v-model="member.sex">여성
             <label class="form-check-label" for="femaleRadio"></label>
           </div>
@@ -97,7 +97,7 @@ export default {
       axios
         .post('http://localhost:8080/members', this.member)
         .then((response) => {
-          this.$store.commit('setMember', respose.data.member)
+          this.$store.commit('setMember', response.data.result)
           this.$router.push({ name: 'SelectView' })
         })
         .catch((error) => {

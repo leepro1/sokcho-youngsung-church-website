@@ -21,7 +21,7 @@
         <div class="p-2 flex-fill">
           <div class="form-check">
             <input type="radio" class="form-check-input" id="maleRadio" name="sex" value="male" v-model="member.sex">남성
-            <label class="form-check-label" for="maleRadio1"></label>
+            <label class="form-check-label" for="maleRadio"></label>
           </div>
         </div>
         <div class="p-2 flex-fill">

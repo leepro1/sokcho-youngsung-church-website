@@ -2,7 +2,7 @@
   <div class="container mt-3">
     <h1 class="display-1 text-center">회원 목록</h1>
     <div class="btn-group">
-      <a href="/member/save" class="btn btn-primary">회원 추가</a>
+      <router-link to="/member/save" class="btn btn-primary">회원 추가</router-link>
     </div>
     <table class="table table-hover mt-3">
       <thead class="table-dark">
@@ -17,7 +17,7 @@
       <tbody>
         <tr class="cursor-pointer" v-for="member in memberList" :key="member.id"
         @click="$event => href(member)">
-          <td>{{ member.name }}</td>
+          <td>{{ member.username }}</td>
           <td>{{ member.email }}</td>
           <td>{{ member.sex }}</td>
           <td>{{ member.isChurchMember }}</td>
