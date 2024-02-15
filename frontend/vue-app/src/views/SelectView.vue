@@ -89,6 +89,7 @@ export default {
     },
     cancel(){
       this.$store.commit('setMember',{})
+      sessionStorage.removeItem('setMember')
       this.$router.push({name: "ListView"})
     }
   }

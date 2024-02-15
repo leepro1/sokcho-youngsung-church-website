@@ -31,7 +31,6 @@
     
 <script>
 import axios from 'axios'
-import store from '@/store'
 export default {
   name: "ListView",
   data() {
@@ -54,8 +53,12 @@ export default {
         })
     },
     href(member) {
-      store.commit('setMember',member)
+      this.$store.commit('setMember',member)
+      sessionStorage.setItem('setMember', this.base64(member))
       this.$router.push({name: "SelectView"})
+    },
+    base64(member) {
+      return window.btoa(encodeURIComponent(JSON.stringify(member)))
     }
   }
 }

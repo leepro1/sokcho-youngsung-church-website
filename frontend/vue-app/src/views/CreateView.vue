@@ -98,11 +98,15 @@ export default {
         .post('http://localhost:8080/members', this.member)
         .then((response) => {
           this.$store.commit('setMember', response.data.result)
+          sessionStorage.setItem('setMember', JSON.stringify(response.result))
           this.$router.push({ name: 'SelectView' })
         })
         .catch((error) => {
           console.log(error)
         })
+    },
+    base64(member) {
+      return window.btoa(encodeURIComponent(JSON.stringify(member)))
     }
   }
 }

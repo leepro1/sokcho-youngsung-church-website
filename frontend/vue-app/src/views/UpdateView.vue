@@ -79,6 +79,7 @@ export default {
       .then((response) => {
           if(response.data.state){
             this.$store.commit('setMember',this.member)    
+            sessionStorage.setItem('setMember', this.base64(this.member))
             this.cancel()
           } else{
             alert(response.data.message)
@@ -90,6 +91,9 @@ export default {
     },
     cancel() {
       this.$router.push({name: "SelectView"})
+    },
+    base64(member) {
+      return window.btoa(encodeURIComponent(JSON.stringify(member)))
     }
   }
 }

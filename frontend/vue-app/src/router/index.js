@@ -13,7 +13,7 @@ const routes = [
     component: () => import(/* webpackChunkName: "member" */ '../views/ListView.vue')
   },
   {
-    path: '/member/findById',
+    path: '/member/detail',
     name: 'SelectView',
     component: () => import(/* webpackChunkName: "member" */ '../views/SelectView.vue')
   },
