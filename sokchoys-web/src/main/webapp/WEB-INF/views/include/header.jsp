@@ -23,14 +23,25 @@
 					href="${root}//list"></a></li>
 				<c:choose>
 					<c:when test='${empty userInfo }'>
-						<li class="nav-item"><a class="nav-link"
-							href="${root}/members/login">로그인</a></li>
+						<li class="nav-item">
+							<a class="nav-link" href="${root}/members/login">로그인</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="${root}/members/join">회원가입</a>
+						</li>
+					</c:when>
+					<c:when test='${userInfo.role.equals("ADMIN") }'>
+						<li class="nav-item">
+							<a class="nav-link" href="${root}/members/list">회원관리</a>
+						</li>
 					</c:when>
 					<c:otherwise>
-						<li class="nav-item"><a class="nav-link"
-							href="${root}/members/mypage">MyPage</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="${root}/members/logout">로그아웃</a></li>
+						<li class="nav-item">
+							<a class="nav-link" href="${root}/members/mypage">MyPage</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="${root}/members/logout">로그아웃</a>
+						</li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
