@@ -22,4 +22,6 @@ public interface MemberDao {
 
     void deleteById(int id) throws SQLException;
 
+    void auth(MemberDto member) throws SQLException;
+
 }

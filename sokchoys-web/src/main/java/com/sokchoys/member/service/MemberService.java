@@ -1,5 +1,6 @@
 package com.sokchoys.member.service;
 
+import com.sokchoys.member.constant.Role;
 import com.sokchoys.member.dto.MemberDto;
 import com.sokchoys.member.dto.MemberFormDto;
 import com.sokchoys.member.dto.MemberInfoDto;
@@ -18,4 +19,6 @@ public interface MemberService {
     void deleteById(int id);
 
     MemberInfoDto login(String email, String password);
+
+    void auth(int id, Role role);
 }

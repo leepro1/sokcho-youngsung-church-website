@@ -1,6 +1,7 @@
 package com.sokchoys.member.service;
 
 import com.sokchoys.SokchoException;
+import com.sokchoys.member.constant.Role;
 import com.sokchoys.member.dao.MemberDao;
 import com.sokchoys.member.dto.MemberDto;
 import com.sokchoys.member.dto.MemberFormDto;
@@ -14,7 +15,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     private final MemberDao memberDao;
 
@@ -22,10 +23,10 @@ public class MemberServiceImpl implements MemberService{
     public MemberDto findById(int id) {
         try {
             MemberDto find = memberDao.findById(id);
-            if(find == null){
+            if (find == null) {
                 throw new SokchoException("해당 회원이 존재하지 않습니다.");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new SokchoException("회원 조회 중 에러 발생");
         }
 
@@ -35,31 +36,35 @@ public class MemberServiceImpl implements MemberService{
     private MemberDto findByEmail(String email) {
         try {
             MemberDto find = memberDao.findByEmail(email);
-            if(find == null){
+            if (find == null) {
                 throw new SokchoException("해당 회원이 존재하지 않습니다.");
             }
 
             return find;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new SokchoException("회원 조회 중 에러 발생");
         }
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public List<MemberDto> findAll() {
-        return null;
+        try {
+            return memberDao.findAll();
+        } catch (Exception e) {
+            throw new SokchoException("회원 조회 중 에러 발생");
+        }
     }
 
     @Override
     public void createMember(MemberFormDto member) {
         try {
             MemberDto find = memberDao.findByEmail(member.getEmail());
-            if(find != null){
+            if (find != null) {
                 throw new SokchoException("해당 이메일이 이미 존재합니다.");
             }
 
             memberDao.createMember(member);
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new SokchoException("회원 가입 중 에러 발생");
         }
     }
@@ -69,11 +74,11 @@ public class MemberServiceImpl implements MemberService{
 
     }
 
-    @Override
+    @Transactional(readOnly = true)
     public MemberInfoDto login(String email, String password) {
         try {
             MemberDto find = memberDao.findByEmail(email);
-            if(find == null){
+            if (find == null) {
                 throw new SokchoException("존재하지 않는 회원입니다.");
             } else if (!find.getPassword().equals(password)) {
                 throw new SokchoException("비밀번호가 일치하지 않습니다.");
@@ -84,8 +89,27 @@ public class MemberServiceImpl implements MemberService{
             member.setName(find.getName());
             member.setRole(find.getRole());
             return member;
-        } catch (SQLException e){
+        } catch (SQLException e) {
             throw new SokchoException("로그인 처리 중 에러 발생");
+        }
+    }
+
+    @Transactional
+    public void auth(int id, Role role) {
+        try {
+            if (role.equals(Role.ADMIN)) {
+                MemberDto member = new MemberDto();
+                member.setId(id);
+                member.setRole(Role.USER);
+                memberDao.auth(member);
+            } else {
+                MemberDto member = new MemberDto();
+                member.setId(id);
+                member.setRole(Role.ADMIN);
+                memberDao.auth(member);
+            }
+        } catch (Exception e) {
+            throw new SokchoException("권한 처리 중 에러 발생");
         }
     }
 }

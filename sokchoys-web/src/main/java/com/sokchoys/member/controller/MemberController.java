@@ -1,5 +1,6 @@
 package com.sokchoys.member.controller;
 
+import com.sokchoys.member.constant.Role;
 import com.sokchoys.member.dto.MemberDto;
 import com.sokchoys.member.dto.MemberFormDto;
 import com.sokchoys.member.dto.MemberInfoDto;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/members")
@@ -59,4 +62,16 @@ public class MemberController {
         return "members/mypage";
     }
 
+    @GetMapping("/list")
+    public String list(Model model){
+        List<MemberDto> members = memberService.findAll();
+        model.addAttribute("members", members);
+        return "members/list";
+    }
+
+    @GetMapping("/auth/{id}")
+    public String auth(@PathVariable("id") int id, @RequestParam("role") Role role){
+        memberService.auth(id, role);
+        return "redirect:/members/list";
+    }
 }

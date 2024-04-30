@@ -19,8 +19,9 @@
 				</tr>
 			</table>
 			<div class='text-center'>
-					<input class='btn btn-primary' type="submit" value="회원가입" id="regist">
-					<input class='btn btn-primary' type="reset" value="다시 입력" id="reset">
+				<input class='btn btn-primary' type="submit" value="회원가입" id="regist">
+				<input class='btn btn-primary' type="reset" value="다시 입력" id="reset">
+				<a class="btn btn-secondary" href="${root}/">메인 페이지</a>
 			</div>
 		</form>
 	</div>

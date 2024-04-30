@@ -19,8 +19,9 @@
 	<nav class="navbar navbar-expand-sm bg-light navbar-light">
 		<div class="container-fluid">
 			<ul class="navbar-nav">
-				<li class="nav-item"><a class="nav-link active"
-					href="${root}//list"></a></li>
+				<li class="nav-item">
+					<a class="nav-link active" href="${root}/">로고</a>
+				</li>
 				<c:choose>
 					<c:when test='${empty userInfo }'>
 						<li class="nav-item">
@@ -28,11 +29,6 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="${root}/members/join">회원가입</a>
-						</li>
-					</c:when>
-					<c:when test='${userInfo.role.equals("ADMIN") }'>
-						<li class="nav-item">
-							<a class="nav-link" href="${root}/members/list">회원관리</a>
 						</li>
 					</c:when>
 					<c:otherwise>
@@ -43,6 +39,14 @@
 							<a class="nav-link" href="${root}/members/logout">로그아웃</a>
 						</li>
 					</c:otherwise>
+				</c:choose>
+
+				<c:choose>
+					<c:when test='${userInfo.role eq ("ADMIN")}'>
+						<li class="nav-item">
+							<a class="nav-link" href="${root}/members/list">회원관리</a>
+						</li>
+					</c:when>
 				</c:choose>
 			</ul>
 		</div>
