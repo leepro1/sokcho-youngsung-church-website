@@ -33,7 +33,8 @@
         </div>
 
         <button type="submit" class="btn btn-primary">로그인</button>
-        <a class="btn btn-secondary" href="${root}/members/join" >회원가입</a>
+        <a class="btn btn-secondary" href="${root}/members/changePwd">비밀번호 찾기</a>
+        <a class="btn btn-secondary" href="${root}/members/join">회원가입</a>
         <a class="btn btn-secondary" href="${root}/">메인 페이지</a>
     </form>
 </div>

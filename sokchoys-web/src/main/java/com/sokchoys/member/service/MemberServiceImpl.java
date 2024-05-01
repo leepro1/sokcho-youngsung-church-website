@@ -6,10 +6,12 @@ import com.sokchoys.member.dao.MemberDao;
 import com.sokchoys.member.dto.MemberDto;
 import com.sokchoys.member.dto.MemberFormDto;
 import com.sokchoys.member.dto.MemberInfoDto;
+import com.sokchoys.member.dto.MemberPwdDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.MessageDigest;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -62,7 +64,7 @@ public class MemberServiceImpl implements MemberService {
             if (find != null) {
                 throw new SokchoException("해당 이메일이 이미 존재합니다.");
             }
-
+            member.setPassword(Encrypt(member.getPassword()));
             memberDao.createMember(member);
         } catch (Exception e) {
             throw new SokchoException("회원 가입 중 에러 발생");
@@ -70,8 +72,17 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void updatePassword(MemberPwdDto memberPwdDto) {
+        try {
+            memberPwdDto.setNewPwd(Encrypt(memberPwdDto.getNewPwd()));
+            memberDao.updatePassword(memberPwdDto);
+        } catch (Exception e) {
+            throw new SokchoException("비밀번호 변경 중 에러 발생");
+        }
+    }
 
+    @Override
+    public void deleteById(int id) {
     }
 
     @Transactional(readOnly = true)
@@ -80,7 +91,7 @@ public class MemberServiceImpl implements MemberService {
             MemberDto find = memberDao.findByEmail(email);
             if (find == null) {
                 throw new SokchoException("존재하지 않는 회원입니다.");
-            } else if (!find.getPassword().equals(password)) {
+            } else if (!find.getPassword().equals(Encrypt(password))) {
                 throw new SokchoException("비밀번호가 일치하지 않습니다.");
             }
 
@@ -89,7 +100,7 @@ public class MemberServiceImpl implements MemberService {
             member.setName(find.getName());
             member.setRole(find.getRole());
             return member;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new SokchoException("로그인 처리 중 에러 발생");
         }
     }
@@ -112,4 +123,26 @@ public class MemberServiceImpl implements MemberService {
             throw new SokchoException("권한 처리 중 에러 발생");
         }
     }
+
+    private String Encrypt(String password) throws Exception {
+        return getEncrypt_keystretching(getEncrypt_keystretching(password));
+    }
+
+    private String getEncrypt_keystretching(String pwd) throws Exception {
+
+        StringBuffer sb;
+        // 1. SHA256 알고리즘 객체 생성
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+
+        // 2. pwd 문자열에 SHA 256 적용
+        md.update(pwd.getBytes());
+        byte[] pwdResult = md.digest();
+        sb = new StringBuffer();
+        for (byte b : pwdResult) {
+            sb.append(String.format("%02x", b));
+        }
+
+        return sb.toString();
+    }
+
 }

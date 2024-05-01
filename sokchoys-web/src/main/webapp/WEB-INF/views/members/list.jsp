@@ -24,12 +24,12 @@
                 <c:choose>
                     <c:when test="${member.role eq 'ADMIN'}">
                         <td><a class="btn btn-secondary"
-                                           href="${root}/members/auth/${member.id}?role=${member.role}">관리자 권한 회수</a>
+                                           href="${root}/members/admin/auth/${member.id}?role=${member.role}">관리자 권한 회수</a>
                         </td>
                     </c:when>
                     <c:otherwise>
                         <td><a class="btn btn-primary"
-                                           href="${root}/members/auth/${member.id}?role=${member.role}">관리자 권한 부여</a>
+                                           href="${root}/members/admin/auth/${member.id}?role=${member.role}">관리자 권한 부여</a>
                         </td>
                     </c:otherwise>
                 </c:choose>

@@ -26,10 +26,11 @@
         values (#{email}, #{password}, #{name}, #{role})
     </insert>
 
-    <!--    <update id="updatePassword" parameterType="MemberPwdDto">-->
-    <!--        update members set password = #{password}-->
-    <!--        where member_id = #{id}-->
-    <!--    </update>-->
+    <update id="updatePassword" parameterType="MemberPwdDto">
+        update members
+        set password = #{newPwd}
+        where member_id = #{id}
+    </update>
 
     <delete id="deleteById" parameterType="int">
         delete

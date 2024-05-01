@@ -44,7 +44,7 @@
 				<c:choose>
 					<c:when test='${userInfo.role eq ("ADMIN")}'>
 						<li class="nav-item">
-							<a class="nav-link" href="${root}/members/list">회원관리</a>
+							<a class="nav-link" href="${root}/members/admin/list">회원관리</a>
 						</li>
 					</c:when>
 				</c:choose>

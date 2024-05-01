@@ -4,6 +4,7 @@ import com.sokchoys.member.constant.Role;
 import com.sokchoys.member.dto.MemberDto;
 import com.sokchoys.member.dto.MemberFormDto;
 import com.sokchoys.member.dto.MemberInfoDto;
+import com.sokchoys.member.dto.MemberPwdDto;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface MemberService {
 
     void createMember(MemberFormDto member);
 
-    // void updatePassword(MemberPwdDto memberPwdDto);
+    void updatePassword(MemberPwdDto memberPwdDto);
 
     void deleteById(int id);
 
