@@ -1,0 +1,42 @@
+services:
+  my-server:
+    build: .
+    ports:
+      - "8081:8081"
+    depends_on:
+      my-db:
+        condition: service_healthy
+      my-cache-server:
+        condition: service_healthy
+    entrypoint: ["java", "-jar", "/app.jar"]
+    networks:
+      - my-network
+
+  my-db:
+    image: mysql
+    volumes:
+      - /Users/ihuiju/sokchoys/data:/var/lib/mysql
+    ports:
+      - "3307:3307"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping"]
+      interval: 5s
+      retries: 10
+    networks:
+      - my-network
+
+  my-cache-server:
+    image: redis
+    environment:
+      - TZ=Asia/Seoul
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      retries: 10
+    networks:
+      - my-network
+
+networks:
+  my-network:
