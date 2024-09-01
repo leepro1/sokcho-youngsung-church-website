@@ -1,5 +1,6 @@
 package com.sokchoys.domain.user.service;
 
+import com.sokchoys.domain.user.dto.CustomOAuth2User;
 import com.sokchoys.domain.user.dto.response.GoogleResponse;
 import com.sokchoys.domain.user.dto.response.NaverResponse;
 import com.sokchoys.domain.user.dto.response.OAuth2Response;
@@ -29,5 +30,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             return null;
         }
 
+        String role = "ROLE_USER";
+
+        return new CustomOAuth2User(oAuth2Response, role);
     }
 }
