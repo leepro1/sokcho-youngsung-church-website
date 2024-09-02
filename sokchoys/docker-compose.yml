@@ -19,7 +19,7 @@ services:
     volumes:
       - /Users/ihuiju/sokchoys/data:/var/lib/mysql
     ports:
-      - "3307:3307"
+      - "3306:3306"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping"]
       interval: 5s

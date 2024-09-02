@@ -34,9 +34,9 @@ public class SecurityConfig {
             )
 
             .oauth2Login((oauth2) -> oauth2
-                .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
-                    .userService(customOAuth2UserService)
-                )
+                .loginPage("/login")
+                .userInfoEndpoint((userInfoEndpointConfig) ->
+                    userInfoEndpointConfig.userService(customOAuth2UserService))
             )
 
             .authorizeHttpRequests((auth) -> auth
