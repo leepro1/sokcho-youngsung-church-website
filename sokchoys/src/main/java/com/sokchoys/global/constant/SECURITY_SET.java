@@ -1,4 +1,4 @@
-package com.sokchoys.constant;
+package com.sokchoys.global.constant;
 
 public final class SECURITY_SET {
 
