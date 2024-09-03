@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Church Information</title>
+</head>
+<body>
+<h1>Church Information</h1>
+<h2 th:text="${info.name}"></h2>
+<p><strong>Address:</strong> <span th:text="${info.address}"></span></p>
+<h3>History</h3>
+<p th:text="${info.history}"></p>
+<h3>Vision</h3>
+<p th:text="${info.vision}"></p>
+
+<div th:if="${#authentication.principal?.role == 'ADMIN'}">
+  <a href="/info/edit">Edit Church Info</a>
+</div>
+</body>
+</html>
